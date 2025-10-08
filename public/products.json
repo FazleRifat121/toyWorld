@@ -1,0 +1,37 @@
+[
+	{
+		"id": 1,
+		"img": "https://i.ibb.co.com/CKDVFmmF/71u-RENNFM4-L-UF894-1000-QL80.jpg",
+		"title": "Futuristic Robot Toy",
+		"description": "A high-tech robot toy with lights and sound effects.",
+		"price": 49.99
+	},
+	{
+		"id": 2,
+		"img": "https://i.ibb.co.com/RnwLhLB/fullblack.webp",
+		"title": "Racing Car Set",
+		"description": "Fast and sleek racing car set for kids of all ages.",
+		"price": 39.99
+	},
+	{
+		"id": 3,
+		"img": "/images/toy3.png",
+		"title": "Flying Drone Toy",
+		"description": "Mini drone with camera, perfect for indoor and outdoor fun.",
+		"price": 79.99
+	},
+	{
+		"id": 4,
+		"img": "/images/toy4.png",
+		"title": "Action Figure Set",
+		"description": "Superhero action figure set with interchangeable accessories.",
+		"price": 29.99
+	},
+	{
+		"id": 5,
+		"img": "/images/toy5.png",
+		"title": "Building Blocks Kit",
+		"description": "Colorful blocks to spark creativity and imagination.",
+		"price": 24.99
+	}
+]
