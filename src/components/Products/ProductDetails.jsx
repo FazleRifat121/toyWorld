@@ -5,7 +5,9 @@ function ProductDetails({ addToCart }) {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const [product, setProduct] = useState(null);
-
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	useEffect(() => {
 		const fetchProduct = async () => {
 			try {
