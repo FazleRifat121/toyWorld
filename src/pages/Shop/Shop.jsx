@@ -5,21 +5,22 @@ function Shop() {
 	const [items, setItems] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 	const itemsPerPage = 12;
-
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	useEffect(() => {
 		fetch("./products.json")
 			.then((response) => response.json())
 			.then((data) => setItems(data));
 	}, []);
 
-	// Pagination logic
 	const totalPages = Math.ceil(items.length / itemsPerPage);
 	const startIndex = (currentPage - 1) * itemsPerPage;
 	const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
 
 	const handlePageChange = (page) => {
 		setCurrentPage(page);
-		window.scrollTo({ top: 0, behavior: "smooth" }); // smooth scroll up
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
 	return (
@@ -38,10 +39,8 @@ function Shop() {
 					{[...Array(totalPages)].map((_, index) => (
 						<input
 							key={index}
-							className={`join-item btn btn-square ${
-								currentPage === index + 1
-									? " bg-cyan-500 border border-cyan-500"
-									: ""
+							className={`join-item btn btn-square glowing-button ${
+								currentPage === index + 1 ? "active-page" : ""
 							}`}
 							type="radio"
 							name="options"
@@ -52,6 +51,34 @@ function Shop() {
 					))}
 				</div>
 			</div>
+
+			<style>{`
+				.glowing-button {
+					transition: all 0.3s ease-in-out;
+					border: 1px solid #0ff;
+					color: #0ff;
+				}
+
+				.glowing-button:hover {
+					box-shadow:
+						0 0 5px #0ff,
+						0 0 10px #0ff,
+						0 0 20px #0ff,
+						0 0 40px #0ff;
+					transform: scale(1.05);
+					color: #fff;
+				}
+
+				.active-page {
+					background-color: #0ff !important;
+					color: #000 !important;
+					box-shadow:
+						0 0 5px #0ff,
+						0 0 10px #0ff,
+						0 0 20px #0ff,
+						0 0 40px #0ff;
+				}
+			`}</style>
 		</div>
 	);
 }
