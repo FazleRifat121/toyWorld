@@ -4,84 +4,127 @@
 		"img": "https://i.ibb.co.com/rKg8vjk5/71u-RENNFM4-L-UF894-1000-QL80.jpg",
 		"title": "Futuristic Robot Toy",
 		"description": "A high-tech robot toy with lights and sound effects.",
-		"price": 49.99
+		"price": 49.99,
+		"category": "Robotics"
 	},
 	{
 		"id": 2,
 		"img": "https://i.ibb.co.com/Mkv1WZfJ/mclaren-720s-gt3-1549636513.jpg",
 		"title": "Racing Car Set",
 		"description": "Fast and sleek racing car set for kids of all ages.",
-		"price": 39.99
+		"price": 39.99,
+		"category": "Vehicles"
 	},
 	{
 		"id": 3,
 		"img": "https://i.ibb.co.com/YB3WFj6S/20200108-Drone-Racing-header.jpg",
 		"title": "Flying Drone Toy",
 		"description": "Mini drone with camera, perfect for indoor and outdoor fun.",
-		"price": 79.99
+		"price": 79.99,
+		"category": "Robotics"
 	},
 	{
 		"id": 4,
 		"img": "https://i.ibb.co.com/PZ0ppF0K/Super-Cool-High-Quality-Plastic-PVC-Material-Japanese-Final-Fantasy-Anime-Action-Figure-Flexible-Mil.jpg",
 		"title": "Action Figure Set",
 		"description": "Superhero action figure set with interchangeable accessories.",
-		"price": 29.99
+		"price": 29.99,
+		"category": "Action Figures"
 	},
 	{
 		"id": 5,
 		"img": "https://i.ibb.co.com/20YpTnSg/pngtree-pile-of-lego-bricks-is-shown-on-a-black-background-picture-image-2903592.png",
 		"title": "Building Blocks Kit",
 		"description": "Colorful blocks to spark creativity and imagination.",
-		"price": 24.99
+		"price": 24.99,
+		"category": "Building"
 	},
-
 	{
 		"id": 6,
 		"img": "https://i.ibb.co.com/Hfyzfzrb/74.jpg",
 		"title": "Remote Control Helicopter",
 		"description": "Easy-to-fly RC helicopter for indoor and outdoor fun.",
-		"price": 59.99
+		"price": 59.99,
+		"category": "Vehicles"
 	},
 	{
 		"id": 7,
 		"img": "https://i.ibb.co.com/gZQkPbMF/product-image-natural-brown-9906-1.webp",
 		"title": "Plush Teddy Bear",
 		"description": "Soft and cuddly teddy bear for kids of all ages.",
-		"price": 19.99
+		"price": 19.99,
+		"category": "Plush"
 	},
 	{
 		"id": 8,
 		"img": "https://i.ibb.co.com/G4TRFHQm/TYPZ02433-324x324.jpg",
 		"title": "Magic Puzzle Cube",
 		"description": "Challenging puzzle cube that boosts problem-solving skills.",
-		"price": 14.99
+		"price": 14.99,
+		"category": "Puzzles"
 	},
 	{
 		"id": 9,
 		"img": "https://i.ibb.co.com/CsVBpmVg/master-railway-royal-express-train-set.jpg",
 		"title": "Electric Train Set",
 		"description": "Classic electric train with tracks and scenery for imaginative play.",
-		"price": 89.99
+		"price": 89.99,
+		"category": "Vehicles"
 	},
 	{
 		"id": 10,
 		"img": "https://i.ibb.co.com/1th44hqz/81t-N-g-Fb-GBL-AC-SL1500.jpg",
 		"title": "Educational Science Kit",
 		"description": "Fun science experiments for curious young minds.",
-		"price": 34.99
+		"price": 34.99,
+		"category": "STEM"
 	},
 	{
 		"id": 11,
 		"img": "https://i.ibb.co.com/fVhnHsS2/images.jpg",
 		"title": "Mini Robot Pet",
 		"description": "Interactive mini robot pet that responds to touch and sound.",
-		"price": 44.99
+		"price": 44.99,
+		"category": "Robotics"
 	},
 	{
 		"id": 12,
 		"img": "https://i.ibb.co.com/5gqKnZYv/151.jpg",
 		"title": "Remote Control Car",
 		"description": "High-speed RC car with rechargeable battery and LED lights.",
-		"price": 54.99
+		"price": 54.99,
+		"category": "Vehicles"
+	},
+	{
+		"id": 13,
+		"img": "https://i.ibb.co.com/CpfCBSyd/images-1.jpg",
+		"title": "Space Shuttle Builder Kit",
+		"description": "Assemble your own space shuttle with detailed parts and mini astronauts.",
+		"price": 64.99,
+		"category": "Building"
+	},
+	{
+		"id": 14,
+		"img": "https://i.ibb.co.com/wXMWtRz/images.jpg",
+		"title": "AI Smart Puppy",
+		"description": "A smart robotic puppy that learns commands and dances to music.",
+		"price": 89.99,
+		"category": "Robotics"
+	},
+	{
+		"id": 15,
+		"img": "https://i.ibb.co.com/Kxg2jg8G/91-Ajra-Ay-Au-L-SL1500.jpg",
+		"title": "Math Genius Kit",
+		"description": "Hands-on math puzzles and games that make learning fun.",
+		"price": 27.99,
+		"category": "STEM"
+	},
+	{
+		"id": 16,
+		"img": "https://i.ibb.co.com/tPxHxBmN/KAIDO-99012-Dragon-Warrior-7.jpg",
+		"title": "Dragon Warrior Figure",
+		"description": "Epic fantasy dragon figure with movable wings and glowing eyes.",
+		"price": 59.99,
+		"category": "Action Figures"
 	}
 ]
