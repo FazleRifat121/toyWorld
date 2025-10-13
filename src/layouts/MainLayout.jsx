@@ -4,12 +4,13 @@ import Footer from "../components/Footer/Footer";
 
 function MainLayout() {
 	return (
-		<div>
-			<div className="min-h-screen bg-gradient-to-tr from-black via-gray-900 to-black animate-gradient-x text-white">
-				<Navbar />
+		<div className="min-h-screen bg-gradient-to-tr from-black via-gray-900 to-black animate-gradient-x text-white">
+			<Navbar />
+			{/* Add top padding for pages with fixed navbar */}
+			<div className="pt-20">
 				<Outlet />
-				<Footer />
 			</div>
+			<Footer />
 		</div>
 	);
 }

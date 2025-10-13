@@ -16,7 +16,7 @@ export default function ProductCard({ item }) {
 			}}
 			onClick={handleClick}
 		>
-			<h2 className="lg:card-title lg:opacity-0 group-hover:opacity-100">
+			<h2 className="lg:card-title lg:opacity-0 group-hover:opacity-100 text-cyan-400">
 				{item.title}
 			</h2>
 		</div>

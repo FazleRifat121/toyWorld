@@ -46,7 +46,11 @@ function ProductDetails({ addToCart }) {
 
 				{/* Product Info */}
 				<div className="flex flex-col justify-start gap-4">
-					<h1 className="text-4xl font-bold text-cyan-400">{product.title}</h1>
+					{/* Title always glowing */}
+					<h1 className="text-4xl font-bold text-cyan-400 glowing-text">
+						{product.title}
+					</h1>
+
 					<p className="text-gray-300">{product.description}</p>
 					<p className="text-2xl font-bold">
 						${product.offerPrice ?? product.price}{" "}
@@ -56,10 +60,12 @@ function ProductDetails({ addToCart }) {
 							</span>
 						)}
 					</p>
+
 					<div className="flex gap-4 mt-4">
+						{/* Add to Cart glowing on hover */}
 						<button
 							onClick={handleAddToCart}
-							className="px-6 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded-lg"
+							className="px-6 py-2 bg-cyan-500 text-black font-bold rounded-lg glowing-button"
 						>
 							Add to Cart
 						</button>
@@ -72,6 +78,24 @@ function ProductDetails({ addToCart }) {
 					</div>
 				</div>
 			</div>
+
+			{/* Custom styles for glowing */}
+			<style>{`
+       
+      
+        /* Button glow on hover */
+        .glowing-button {
+          transition: all 0.3s ease-in-out;
+        }
+        .glowing-button:hover {
+          box-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 40px #0ff;
+          transform: scale(1.05);
+        }
+      `}</style>
 		</div>
 	);
 }

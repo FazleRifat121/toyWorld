@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router"; // react-router
+import { Link, useLocation } from "react-router"; // fixed import
 import { FaBars } from "react-icons/fa";
 import gsap from "gsap";
 
@@ -7,6 +7,8 @@ function Navbar() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const navLogo = useRef();
 	const navLinks = useRef([]);
+	const location = useLocation();
+	const isHome = location.pathname === "/";
 
 	const links = [
 		{ name: "Home", to: "/" },
@@ -39,7 +41,11 @@ function Navbar() {
 	};
 
 	return (
-		<div className="navbar bg-transparent px-4 py-3 fixed w-full z-50 backdrop-blur-md border-b border-cyan-500/20">
+		<div
+			className={`navbar bg-transparent px-4 py-3 w-full z-50 backdrop-blur-md border-b border-cyan-500/20 ${
+				isHome ? "fixed" : "relative"
+			}`}
+		>
 			<div className="navbar-start">
 				<a
 					ref={navLogo}
