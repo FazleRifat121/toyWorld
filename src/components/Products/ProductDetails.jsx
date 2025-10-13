@@ -42,7 +42,7 @@ function ProductDetails({ addToCart }) {
 					<img
 						src={product.img}
 						alt={product.title}
-						className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+						className="w-full h-full object-cover rounded-lg shadow-lg"
 					/>
 				</div>
 

@@ -1,36 +1,45 @@
 .card {
-	width: 190px;
-	height: 254px;
+	width: 230px; /* 🔼 was 190px */
+	height: 300px; /* 🔼 was 254px */
 	background: #07182e;
 	position: relative;
 	display: flex;
 	place-content: center;
 	place-items: center;
 	overflow: hidden;
-	border-radius: 20px;
+	border-radius: 24px; /* slightly rounder corners */
 	cursor: pointer;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 .card h2 {
 	z-index: 2;
-	color: cyan;
-	font-size: 2em;
+	color: rgb(2, 218, 218);
+	font-size: 2.2em; /* 🔼 slightly larger text */
 	transition: color 0.3s ease;
+	font-weight: bold;
+	text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .card::before {
 	content: "";
 	position: absolute;
-	width: 100px;
+	width: 120px; /* 🔼 slightly larger gradient sweep */
 	background-image: linear-gradient(
 		180deg,
 		rgb(0, 183, 255),
 		rgb(255, 48, 255)
 	);
-	height: 130%;
+	height: 140%;
 	animation: rotBGimg 3s linear infinite;
 	transition: all 0.2s linear;
 	z-index: 0;
+	border-radius: 24px;
 }
 
 @keyframes rotBGimg {
@@ -45,30 +54,44 @@
 .card::after {
 	content: "";
 	position: absolute;
-	inset: 5px;
-	border-radius: 15px;
-	background: var(--hover-bg); /* 🟢 background image always visible */
+	inset: 6px; /* adjust for larger size */
+	border-radius: 18px;
+	background: var(--hover-bg);
 	z-index: 1;
 	background-size: cover;
 	background-position: center;
-	transition: filter 0.4s ease-in-out; /* 🟢 transition for hover darkening */
+	transition: filter 0.4s ease-in-out;
 }
 
 /* 🌈 Hover State — darken the image */
 .card:hover::after {
-	filter: brightness(0.7); /* 🟢 slightly darken on hover */
+	filter: brightness(0.7);
 }
 
 .card:hover::before {
 	background-image: linear-gradient(180deg, rgb(81, 255, 0), purple);
 	animation: rotBGimg 3.5s linear infinite;
 }
+
 .card-title {
 	z-index: 2;
-	font-size: 2em;
+	font-size: 2.2em; /* 🔼 slightly larger text */
 	background: linear-gradient(180deg, rgb(0, 183, 255), rgb(255, 48, 255));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	transition: opacity 0.4s ease-in-out;
 	position: relative;
+	text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+/* 📱 Optional: make slightly smaller on small screens */
+@media (max-width: 640px) {
+	.card {
+		width: 180px;
+		height: 240px;
+	}
+	.card h2,
+	.card-title {
+		font-size: 1.6em;
+	}
 }

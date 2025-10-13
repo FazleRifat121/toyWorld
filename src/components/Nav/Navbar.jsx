@@ -47,13 +47,15 @@ function Navbar() {
 			}`}
 		>
 			<div className="navbar-start">
-				<a
-					ref={navLogo}
-					className="text-xl lg:text-3xl font-bold neon-flicker"
-					style={{ opacity: 0, transform: "translateY(-50px)" }}
-				>
-					ToyWorld
-				</a>
+				<Link to="/">
+					<p
+						ref={navLogo}
+						className="text-xl lg:text-3xl font-bold neon-flicker"
+						style={{ opacity: 0, transform: "translateY(-50px)" }}
+					>
+						ToyWorld
+					</p>
+				</Link>
 			</div>
 
 			<div className="navbar-center hidden lg:flex">
