@@ -141,7 +141,7 @@ function Navbar() {
 					<FaSearch size={20} />
 				</button>
 				{searchOpen && (
-					<div className="absolute top-13 lg:top-10 -left-32 flex flex-col bg-base-200 p-2 rounded shadow-md z-50 w-64">
+					<div className="absolute top-13 lg:top-14 -left-32 lg:-left-80 flex flex-col bg-base-200 p-2 rounded shadow-md z-50 w-64 lg:w-96">
 						<input
 							type="text"
 							value={searchQuery}
@@ -188,19 +188,14 @@ function Navbar() {
 				{/* Signed out */}
 				<SignedOut>
 					<SignInButton>
-						<button className="px-4 py-2 bg-cyan-500 text-black rounded font-bold hover:bg-cyan-400">
+						<button className="px-4 py-2 bg-cyan-500 text-black rounded font-bold hover:bg-cyan-400 ml-10 lg:ml-0 transition-all">
 							Sign In
 						</button>
 					</SignInButton>
-					<SignUpButton>
-						<button className="px-4 py-2 bg-gray-800 text-white rounded font-bold hover:bg-gray-700">
-							Sign Up
-						</button>
-					</SignUpButton>
 				</SignedOut>
 
 				{/* Mobile Drawer */}
-				<div className="lg:hidden">
+				<div className="lg:hidden -ml-5">
 					<div className="drawer">
 						<input
 							id="my-drawer"

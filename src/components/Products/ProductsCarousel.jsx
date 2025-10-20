@@ -6,32 +6,48 @@ import "slick-carousel/slick/slick-theme.css";
 
 function ProductsCarousel() {
 	const [items, setItems] = useState([]);
+	const [slidesToShow, setSlidesToShow] = useState(3);
 
+	// ✅ Dynamically detect screen size and set slidesToShow
+	useEffect(() => {
+		const updateSlides = () => {
+			if (window.innerWidth < 768) {
+				setSlidesToShow(1);
+			} else if (window.innerWidth < 1024) {
+				setSlidesToShow(2);
+			} else {
+				setSlidesToShow(3);
+			}
+		};
+
+		updateSlides(); // run on mount
+		window.addEventListener("resize", updateSlides);
+		return () => window.removeEventListener("resize", updateSlides);
+	}, []);
+
+	// ✅ Fetch products
 	useEffect(() => {
 		fetch("/products.json")
 			.then((res) => res.json())
-			.then((data) => setItems(data));
+			.then((data) => setItems(data))
+			.catch((err) => console.error("Error loading products:", err));
 	}, []);
 
+	// ✅ Use dynamically controlled slidesToShow
 	const settings = {
-		centerMode: true,
+		centerMode: slidesToShow > 1, // disable centerMode on small screens
 		centerPadding: "0px",
-		slidesToShow: 3,
+		slidesToShow,
 		infinite: true,
 		speed: 600,
 		autoplay: true,
 		autoplaySpeed: 2500,
-		focusOnSelect: false,
 		arrows: false,
 		cssEase: "ease-in-out",
-		responsive: [
-			{ breakpoint: 1024, settings: { slidesToShow: 3 } },
-			{ breakpoint: 768, settings: { slidesToShow: 1 } },
-		],
 	};
 
 	return (
-		<div className="mt-20 max-w-6xl mx-auto ">
+		<div className="mt-20 max-w-6xl mx-auto px-4">
 			<h1 className="text-3xl font-bold text-center mb-8 text-white">
 				Products
 			</h1>
