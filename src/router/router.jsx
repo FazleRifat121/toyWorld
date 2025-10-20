@@ -8,6 +8,7 @@ import ProductDetails from "../components/Products/ProductDetails";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home/Home";
 import Shop from "../pages/Shop/Shop";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -15,6 +16,8 @@ export const router = createBrowserRouter(
 			<Route index element={<Home />} />
 			<Route path="/product/:id" element={<ProductDetails />} />
 			<Route path="/shop" element={<Shop />} />
+
+			<Route path="*" element={<NotFound />} />
 		</Route>
 	)
 );
