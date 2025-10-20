@@ -29,8 +29,10 @@ function App() {
 
 	return (
 		<>
-			<Toaster position="top-center" reverseOrder={false} />
-			<RouterProvider router={router({ addToCart, cart, setCart })} />
+			<div className="orbitron overflow-x-hidden">
+				<Toaster position="top-center" reverseOrder={false} />
+				<RouterProvider router={router({ addToCart, cart, setCart })} />
+			</div>
 		</>
 	);
 }

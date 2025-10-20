@@ -1,5 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
+
+.orbitron {
+	font-family: "Orbitron", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+}
+
 @keyframes gradient-x {
 	0%,
 	100% {
