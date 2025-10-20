@@ -11,6 +11,7 @@ import SignInPage from "../pages/User/SignInPage.jsx";
 import SignUpPage from "../pages/User/SignUpPage.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import ProtectedMyOrders from "../components/MyOrders/MyOrders.jsx";
+import OrderPlaced from "../components/OrderPlaced/OrderPlaced.jsx";
 
 // ProtectedRoute wrapper
 const ProtectedRoute = ({ children }) => (
@@ -56,6 +57,7 @@ export const router = ({ addToCart, cart, setCart }) =>
 				{ path: "/sign-up", element: <SignUpPage /> },
 				{ path: "*", element: <NotFound /> },
 				{ path: "/my-orders", element: <ProtectedMyOrders /> },
+				{ path: "/order-placed", element: <OrderPlaced /> },
 			],
 		},
 	]);

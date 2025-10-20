@@ -1,5 +1,4 @@
-"use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import {
 	useUser,
@@ -11,9 +10,8 @@ import toast from "react-hot-toast";
 
 const Checkout = ({ cartItems, setCart }) => {
 	const navigate = useNavigate();
-	const { user } = useUser(); // Get current signed-in user
+	const { user } = useUser();
 
-	// Load saved checkout data from localStorage
 	const savedData = JSON.parse(localStorage.getItem("checkoutData")) || {
 		name: "",
 		email: "",
@@ -24,7 +22,6 @@ const Checkout = ({ cartItems, setCart }) => {
 	const [checkoutData, setCheckoutData] = useState(savedData);
 
 	useEffect(() => {
-		// Save form data to localStorage whenever it changes
 		localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
 	}, [checkoutData]);
 
@@ -54,12 +51,12 @@ const Checkout = ({ cartItems, setCart }) => {
 			return;
 		}
 
-		// Save order
 		const newOrder = {
 			id: Date.now().toString(),
-			userId: user.id, // Clerk user ID
+			userId: user.id,
 			items: cartItems,
 			date: new Date().toISOString(),
+			checkoutData,
 		};
 
 		const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -69,9 +66,13 @@ const Checkout = ({ cartItems, setCart }) => {
 		);
 
 		toast.success("Order placed successfully!");
-		setCart([]); // Clear cart
-		localStorage.removeItem("checkoutData"); // Clear saved form
-		navigate("/my-orders"); // Redirect to home
+
+		// Clear cart in state and localStorage
+		setCart([]);
+		localStorage.removeItem("cart");
+		localStorage.removeItem("checkoutData");
+
+		navigate("/order-placed"); // redirect to gaming order placed page
 	};
 
 	const total = cartItems
@@ -84,7 +85,6 @@ const Checkout = ({ cartItems, setCart }) => {
 	return (
 		<div className="min-h-screen p-8 text-white">
 			<h1 className="text-3xl font-bold mb-6">Checkout</h1>
-
 			<div className="grid md:grid-cols-2 gap-8">
 				{/* Cart Summary */}
 				<div className="bg-gray-800 p-4 rounded-lg">
@@ -121,50 +121,41 @@ const Checkout = ({ cartItems, setCart }) => {
 				<div className="bg-gray-800 p-6 rounded-lg">
 					<h2 className="text-xl font-bold mb-4">Enter Your Details</h2>
 					<form onSubmit={handleCheckout} className="space-y-4">
-						<div>
-							<label className="block mb-1">Name</label>
-							<input
-								type="text"
-								name="name"
-								value={checkoutData.name}
-								onChange={handleChange}
-								className="w-full p-2 rounded bg-gray-700 text-white"
-								required
-							/>
-						</div>
-						<div>
-							<label className="block mb-1">Email</label>
-							<input
-								type="email"
-								name="email"
-								value={checkoutData.email}
-								onChange={handleChange}
-								className="w-full p-2 rounded bg-gray-700 text-white"
-								required
-							/>
-						</div>
-						<div>
-							<label className="block mb-1">Address</label>
-							<textarea
-								name="address"
-								value={checkoutData.address}
-								onChange={handleChange}
-								className="w-full p-2 rounded bg-gray-700 text-white"
-								required
-							/>
-						</div>
-						<div>
-							<label className="block mb-1">Payment Method</label>
-							<select
-								name="payment"
-								value={checkoutData.payment}
-								onChange={handleChange}
-								className="w-full p-2 rounded bg-gray-700 text-white"
-							>
-								<option value="cod">Cash on Delivery</option>
-								<option value="card">Credit/Debit Card</option>
-							</select>
-						</div>
+						<input
+							type="text"
+							name="name"
+							placeholder="Name"
+							value={checkoutData.name}
+							onChange={handleChange}
+							className="w-full p-2 rounded bg-gray-700 text-white"
+							required
+						/>
+						<input
+							type="email"
+							name="email"
+							placeholder="Email"
+							value={checkoutData.email}
+							onChange={handleChange}
+							className="w-full p-2 rounded bg-gray-700 text-white"
+							required
+						/>
+						<textarea
+							name="address"
+							placeholder="Address"
+							value={checkoutData.address}
+							onChange={handleChange}
+							className="w-full p-2 rounded bg-gray-700 text-white"
+							required
+						/>
+						<select
+							name="payment"
+							value={checkoutData.payment}
+							onChange={handleChange}
+							className="w-full p-2 rounded bg-gray-700 text-white"
+						>
+							<option value="cod">Cash on Delivery</option>
+							<option value="card">Credit/Debit Card</option>
+						</select>
 						<button
 							type="submit"
 							className="w-full mt-2 px-6 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
@@ -178,7 +169,6 @@ const Checkout = ({ cartItems, setCart }) => {
 	);
 };
 
-// Protect the route
 const ProtectedCheckout = ({ cartItems, setCart }) => (
 	<>
 		<SignedIn>
