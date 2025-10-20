@@ -218,7 +218,7 @@ function Navbar() {
 			{/* Gaming-style mobile drawer */}
 			<div
 				ref={drawerRef}
-				className="fixed top-0 left-0 w-full h-screen bg-black z-50 flex flex-col items-center justify-center text-white"
+				className="fixed top-0 left-0 w-full h-screen bg-black z-50 flex flex-col items-center justify-center text-white overflow-y-auto"
 				style={{ transform: "translateX(-100%)" }}
 			>
 				<button
