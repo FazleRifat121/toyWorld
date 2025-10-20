@@ -15,6 +15,7 @@ function Navbar() {
 		{ name: "Shop", to: "/shop" },
 		{ name: "About", to: "/about" },
 		{ name: "Contact", to: "/contact" },
+		{ name: "Cart", to: "/cart" },
 	];
 
 	useEffect(() => {

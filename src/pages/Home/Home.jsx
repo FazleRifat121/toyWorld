@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Hero from "../../components/Hero/Hero";
 import Products from "../../components/Products/Products";
 import Services from "../../components/Services/Services";
+import Newsletter from "../../components/NewsLetter/NewsLetter";
 
 function Home() {
 	useEffect(() => {
@@ -12,6 +13,7 @@ function Home() {
 			<Hero />
 			<Products />
 			<Services />
+			<Newsletter />
 		</div>
 	);
 }
