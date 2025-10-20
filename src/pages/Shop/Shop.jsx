@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/Products/ProductCard";
+import img1 from "../../assets/category/all.jpg";
+import img2 from "../../assets/category/robot.jpg";
+import img3 from "../../assets/category/cars.jpg";
+import img4 from "../../assets/category/plush.jpg";
+import img6 from "../../assets/category/action.jpg";
+import img7 from "../../assets/category/blocks.webp";
+import img8 from "../../assets/category/puzzle.webp";
+import img9 from "../../assets/category/stem.webp";
 
 function Shop() {
 	const [items, setItems] = useState([]);
 	const [filteredItems, setFilteredItems] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [category, setCategory] = useState("all");
+	const [category, setCategory] = useState("All");
 	const [sortOption, setSortOption] = useState("default");
 	const itemsPerPage = 12;
 
@@ -22,16 +30,14 @@ function Shop() {
 			});
 	}, []);
 
-	// Filter and sort items
+	// Filter + Sort
 	useEffect(() => {
 		let updated = [...items];
 
-		// Filter by category
-		if (category !== "all") {
+		if (category !== "All") {
 			updated = updated.filter((item) => item.category === category);
 		}
 
-		// Sort
 		if (sortOption === "price-low") {
 			updated.sort((a, b) => a.price - b.price);
 		} else if (sortOption === "price-high") {
@@ -41,10 +47,9 @@ function Shop() {
 		}
 
 		setFilteredItems(updated);
-		setCurrentPage(1); // Reset to first page
+		setCurrentPage(1);
 	}, [category, sortOption, items]);
 
-	// Pagination
 	const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
 	const startIndex = (currentPage - 1) * itemsPerPage;
 	const currentItems = filteredItems.slice(
@@ -57,29 +62,60 @@ function Shop() {
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 
-	// Get unique categories
-	const categories = ["all", ...new Set(items.map((i) => i.category))];
+	// ✅ Match real product categories
+	const categoryData = [
+		{ name: "All", img: img1 },
+		{ name: "Robotics", img: img2 },
+		{ name: "Vehicles", img: img3 },
+		{ name: "Action Figures", img: img6 },
+		{ name: "Building", img: img7 },
+		{ name: "Plush", img: img4 },
+		{ name: "Puzzles", img: img8 },
+		{ name: "Stem", img: img9 },
+	];
 
 	return (
 		<div className="mt-20 max-w-7xl mx-auto px-4">
-			<h1 className="text-3xl font-bold text-center mb-8">Shop</h1>
+			<h1 className="text-3xl font-bold text-center mb-8 text-white">Shop</h1>
 
-			{/* Filters */}
-			<div className="flex flex-col sm:flex-row justify-between mb-8 gap-4">
-				{/* Category Filter */}
-				<select
-					value={category}
-					onChange={(e) => setCategory(e.target.value)}
-					className="p-2 rounded-lg bg-gray-800 text-white"
-				>
-					{categories.map((cat) => (
-						<option key={cat} value={cat}>
-							{cat.toUpperCase()}
-						</option>
-					))}
-				</select>
+			{/* Category Avatar Filter */}
+			<div className="flex flex-wrap justify-center gap-6 mb-10">
+				{categoryData.map((cat) => (
+					<div
+						key={cat.name}
+						onClick={() => setCategory(cat.name)}
+						className={`flex flex-col items-center cursor-pointer transition-transform duration-300 ${
+							category === cat.name ? "scale-110" : "hover:scale-105"
+						}`}
+					>
+						<div
+							className={`w-20 h-20 rounded-full border-2 flex items-center justify-center overflow-hidden ${
+								category === cat.name
+									? "border-cyan-400 shadow-glow"
+									: "border-gray-600"
+							}`}
+						>
+							<img
+								src={cat.img}
+								alt={cat.name}
+								className="object-cover w-full h-full"
+							/>
+						</div>
+						<p
+							className={`mt-2 text-sm uppercase tracking-wide ${
+								category === cat.name
+									? "text-cyan-400 font-semibold"
+									: "text-gray-300"
+							}`}
+						>
+							{cat.name}
+						</p>
+					</div>
+				))}
+			</div>
 
-				{/* Sort */}
+			{/* Sort Options */}
+			<div className="flex justify-end mb-8">
 				<select
 					value={sortOption}
 					onChange={(e) => setSortOption(e.target.value)}
@@ -92,7 +128,7 @@ function Shop() {
 				</select>
 			</div>
 
-			{/* Products Grid */}
+			{/* Product Grid */}
 			<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-10">
 				{currentItems.map((item) => (
 					<ProductCard key={item.id} item={item} />
