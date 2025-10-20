@@ -1,72 +1,78 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-const Cart = ({ cartItems = [], setCart }) => {
+const Cart = ({ cart = [], setCart }) => {
 	const navigate = useNavigate();
-
-	if (!setCart) {
-		console.warn("setCart prop is missing!");
-		return <p>Cart state not available.</p>;
-	}
 
 	// Increase quantity
 	const increaseQty = (id) => {
-		setCart((prev) =>
-			prev.map((item) =>
+		setCart((prev) => {
+			const updated = prev.map((item) =>
 				item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-			)
-		);
+			);
+			localStorage.setItem("cart", JSON.stringify(updated));
+			return updated;
+		});
 	};
 
 	// Decrease quantity
 	const decreaseQty = (id) => {
-		setCart((prev) =>
-			prev.map((item) =>
+		setCart((prev) => {
+			const updated = prev.map((item) =>
 				item.id === id && item.quantity > 1
 					? { ...item, quantity: item.quantity - 1 }
 					: item
-			)
-		);
+			);
+			localStorage.setItem("cart", JSON.stringify(updated));
+			return updated;
+		});
 	};
 
 	// Remove item
 	const removeItem = (id) => {
-		setCart((prev) => prev.filter((item) => item.id !== id));
+		const updated = cart.filter((item) => item.id !== id);
+		setCart(updated);
+		localStorage.setItem("cart", JSON.stringify(updated));
 	};
 
-	// Calculate total
-	const total = cartItems
-		.reduce((acc, item) => acc + item.price * item.quantity, 0)
+	const total = cart
+		.reduce(
+			(acc, item) => acc + (item.offerPrice ?? item.price) * item.quantity,
+			0
+		)
 		.toFixed(2);
 
 	return (
 		<div className="min-h-screen p-8 text-white">
 			<h1 className="text-3xl font-bold mb-6">Your Cart</h1>
 
-			{cartItems.length === 0 ? (
+			{cart.length === 0 ? (
 				<p>Your cart is empty.</p>
 			) : (
 				<>
 					<div className="space-y-4">
-						{cartItems.map((item) => (
+						{cart.map((item) => (
 							<div
 								key={item.id}
 								className="flex justify-between items-center p-4 bg-gray-800 rounded-lg"
 							>
-								{/* Product image + info */}
 								<div className="flex items-center gap-4">
 									<img
-										src={item.img}
+										src={Array.isArray(item.img) ? item.img[0] : item.img}
 										alt={item.title}
-										className="w-20 h-20 object-cover rounded-lg"
+										className="w-16 h-16 object-cover rounded"
 									/>
 									<div>
 										<h2 className="font-semibold text-lg">{item.title}</h2>
-										<p>${item.price.toFixed(2)}</p>
+										<p>
+											${(item.offerPrice ?? item.price).toFixed(2)} x{" "}
+											{item.quantity} = $
+											{(
+												(item.offerPrice ?? item.price) * item.quantity
+											).toFixed(2)}
+										</p>
 									</div>
 								</div>
-
-								{/* Quantity and remove */}
 								<div className="flex items-center gap-2">
 									<button
 										onClick={() => decreaseQty(item.id)}

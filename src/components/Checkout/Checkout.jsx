@@ -1,9 +1,17 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import {
+	useUser,
+	SignedIn,
+	SignedOut,
+	RedirectToSignIn,
+} from "@clerk/clerk-react";
 import toast from "react-hot-toast";
 
 const Checkout = ({ cartItems, setCart }) => {
 	const navigate = useNavigate();
+	const { user } = useUser(); // Get current signed-in user
 
 	// Load saved checkout data from localStorage
 	const savedData = JSON.parse(localStorage.getItem("checkoutData")) || {
@@ -45,14 +53,32 @@ const Checkout = ({ cartItems, setCart }) => {
 			toast.error("Please fill all required fields!");
 			return;
 		}
+
+		// Save order
+		const newOrder = {
+			id: Date.now().toString(),
+			userId: user.id, // Clerk user ID
+			items: cartItems,
+			date: new Date().toISOString(),
+		};
+
+		const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+		localStorage.setItem(
+			"orders",
+			JSON.stringify([...existingOrders, newOrder])
+		);
+
 		toast.success("Order placed successfully!");
 		setCart([]); // Clear cart
 		localStorage.removeItem("checkoutData"); // Clear saved form
-		navigate("/"); // Redirect to home
+		navigate("/my-orders"); // Redirect to home
 	};
 
 	const total = cartItems
-		.reduce((acc, item) => acc + item.price * item.quantity, 0)
+		.reduce(
+			(acc, item) => acc + (item.offerPrice ?? item.price) * item.quantity,
+			0
+		)
 		.toFixed(2);
 
 	return (
@@ -60,7 +86,7 @@ const Checkout = ({ cartItems, setCart }) => {
 			<h1 className="text-3xl font-bold mb-6">Checkout</h1>
 
 			<div className="grid md:grid-cols-2 gap-8">
-				{/* Cart Summary with Images */}
+				{/* Cart Summary */}
 				<div className="bg-gray-800 p-4 rounded-lg">
 					<h2 className="text-xl font-bold mb-4">Order Summary</h2>
 					<div className="space-y-4">
@@ -70,17 +96,21 @@ const Checkout = ({ cartItems, setCart }) => {
 								className="flex justify-between items-center gap-4"
 							>
 								<img
-									src={item.img}
+									src={Array.isArray(item.img) ? item.img[0] : item.img}
 									alt={item.title}
 									className="w-16 h-16 object-cover rounded"
 								/>
 								<div className="flex-1">
 									<p className="font-semibold">{item.title}</p>
 									<p>
-										{item.quantity} x ${item.price.toFixed(2)}
+										{item.quantity} x $
+										{(item.offerPrice ?? item.price).toFixed(2)}
 									</p>
 								</div>
-								<span>${(item.price * item.quantity).toFixed(2)}</span>
+								<span>
+									$
+									{((item.offerPrice ?? item.price) * item.quantity).toFixed(2)}
+								</span>
 							</div>
 						))}
 					</div>
@@ -148,4 +178,16 @@ const Checkout = ({ cartItems, setCart }) => {
 	);
 };
 
-export default Checkout;
+// Protect the route
+const ProtectedCheckout = ({ cartItems, setCart }) => (
+	<>
+		<SignedIn>
+			<Checkout cartItems={cartItems} setCart={setCart} />
+		</SignedIn>
+		<SignedOut>
+			<RedirectToSignIn />
+		</SignedOut>
+	</>
+);
+
+export default ProtectedCheckout;
