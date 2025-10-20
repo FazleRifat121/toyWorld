@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { FaBars, FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
 import gsap from "gsap";
 import {
 	SignedIn,
 	SignedOut,
 	SignInButton,
-	SignUpButton,
 	UserButton,
 } from "@clerk/clerk-react";
 import NavbarUserMenu from "./NavbarUserMenu";
@@ -21,6 +20,7 @@ function Navbar() {
 	const navLogo = useRef();
 	const navLinks = useRef([]);
 	const searchRef = useRef(null);
+	const drawerRef = useRef(null);
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -94,6 +94,19 @@ function Navbar() {
 		setSearchQuery("");
 	};
 
+	// Drawer animation
+	useEffect(() => {
+		if (drawerOpen) {
+			gsap.to(drawerRef.current, { x: 0, duration: 0.5, ease: "power3.out" });
+		} else {
+			gsap.to(drawerRef.current, {
+				x: "-100%",
+				duration: 0.5,
+				ease: "power3.in",
+			});
+		}
+	}, [drawerOpen]);
+
 	return (
 		<div
 			className={`navbar bg-transparent px-4 py-3 w-full z-50 backdrop-blur-md border-b border-cyan-500/20 ${
@@ -133,6 +146,7 @@ function Navbar() {
 				</ul>
 			</div>
 
+			{/* Search */}
 			<div className="relative" ref={searchRef}>
 				<button
 					className="p-2 text-cyan-400 hover:text-white"
@@ -141,7 +155,7 @@ function Navbar() {
 					<FaSearch size={20} />
 				</button>
 				{searchOpen && (
-					<div className="absolute top-13 lg:top-14 -left-32 lg:-left-80 flex flex-col bg-base-200 p-2 rounded shadow-md z-50 w-64 lg:w-96">
+					<div className="absolute top-13 lg:top-14 -left-32 lg:-left-[450px] flex flex-col bg-base-200 p-2 rounded shadow-md z-50 w-64 lg:w-[500px]">
 						<input
 							type="text"
 							value={searchQuery}
@@ -173,16 +187,12 @@ function Navbar() {
 					</div>
 				)}
 			</div>
+
 			{/* Right side */}
 			<div className="navbar-end flex items-center gap-2">
-				{/* Search */}
-
 				{/* Signed in user */}
 				<SignedIn>
-					{/* Cart icon can be removed if you include it in dropdown */}
-					<NavbarUserMenu
-					// boolean from user metadata
-					/>
+					<NavbarUserMenu />
 				</SignedIn>
 
 				{/* Signed out */}
@@ -194,43 +204,41 @@ function Navbar() {
 					</SignInButton>
 				</SignedOut>
 
-				{/* Mobile Drawer */}
-				<div className="lg:hidden -ml-5">
-					<div className="drawer">
-						<input
-							id="my-drawer"
-							type="checkbox"
-							className="drawer-toggle"
-							checked={drawerOpen}
-							onChange={(e) => setDrawerOpen(e.target.checked)}
+				{/* Mobile Drawer Button */}
+				<div className="lg:hidden ml-4">
+					<button onClick={() => setDrawerOpen(true)}>
+						<FaBars
+							size={24}
+							className="text-cyan-400 hover:text-white transition-all duration-300"
 						/>
-						<div className="drawer-content">
-							<label
-								htmlFor="my-drawer"
-								className="drawer-button btn btn-ghost ml-4"
-							>
-								<FaBars
-									size={24}
-									className="text-cyan-400 hover:text-white transition-all duration-300"
-								/>
-							</label>
-						</div>
-						<div className="drawer-side">
-							<label htmlFor="my-drawer" className="drawer-overlay"></label>
-							<ul className="menu bg-base-200 text-base-content min-h-full w-64 p-4">
-								{links.map((link, idx) => (
-									<li
-										key={idx}
-										onClick={() => setDrawerOpen(false)}
-										className="hover:text-cyan-400 transition-all duration-300"
-									>
-										<Link to={link.to}>{link.name}</Link>
-									</li>
-								))}
-							</ul>
-						</div>
-					</div>
+					</button>
 				</div>
+			</div>
+
+			{/* Gaming-style mobile drawer */}
+			<div
+				ref={drawerRef}
+				className="fixed top-0 left-0 w-full h-screen bg-black z-50 flex flex-col items-center justify-center text-white"
+				style={{ transform: "translateX(-100%)" }}
+			>
+				<button
+					className="absolute top-6 right-6 text-red-500 text-3xl hover:text-red-400 transition-all"
+					onClick={() => setDrawerOpen(false)}
+				>
+					<FaTimes />
+				</button>
+				<ul className="space-y-8 text-3xl font-bold neon-glow text-center">
+					{links.map((link, idx) => (
+						<li key={idx} onClick={() => setDrawerOpen(false)}>
+							<Link
+								to={link.to}
+								className="hover:text-cyan-400 transition-all duration-300"
+							>
+								{link.name}
+							</Link>
+						</li>
+					))}
+				</ul>
 			</div>
 
 			{/* Neon Flicker */}
@@ -243,6 +251,15 @@ function Navbar() {
             0 0 20px #0ff,
             0 0 40px #0ff;
           animation: flicker 2s infinite alternate;
+        }
+        .neon-glow {
+          color: #0ff;
+          text-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 40px #0ff;
+          animation: flicker 1.5s infinite alternate;
         }
         @keyframes flicker {
           0% { opacity: 1; }
