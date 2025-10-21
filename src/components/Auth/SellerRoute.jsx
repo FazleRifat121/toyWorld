@@ -4,11 +4,17 @@ import {
 	RedirectToSignIn,
 	useUser,
 } from "@clerk/clerk-react";
+import Loading from "../Loading/Loading";
 
 const SellerRoute = ({ children }) => {
 	const { user, isLoaded } = useUser();
 
-	if (!isLoaded) return <div>Loading...</div>;
+	if (!isLoaded)
+		return (
+			<div>
+				<Loading />
+			</div>
+		);
 
 	// Redirect non-sellers
 	if (user?.publicMetadata?.role !== "seller") {

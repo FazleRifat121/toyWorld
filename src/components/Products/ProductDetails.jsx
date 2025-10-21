@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { useUser } from "@clerk/clerk-react";
 import RelatedProducts from "./RelatedProducts";
-
+import Loading from "../Loading/Loading.jsx";
 function ProductDetails({ addToCart }) {
 	const { id } = useParams();
 	const navigate = useNavigate();
@@ -51,7 +51,7 @@ function ProductDetails({ addToCart }) {
 	if (!product)
 		return (
 			<div className="min-h-screen flex items-center justify-center text-white">
-				Loading...
+				<Loading />
 			</div>
 		);
 
