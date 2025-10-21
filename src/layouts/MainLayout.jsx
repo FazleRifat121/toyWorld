@@ -39,7 +39,7 @@ function MainLayout() {
 				<>
 					<div
 						ref={navbarRef}
-						className="relative w-full z-50" // Ensure Navbar is visible
+						className="relative w-full z-50 -mt-6" // Ensure Navbar is visible
 					>
 						<Navbar />
 					</div>
