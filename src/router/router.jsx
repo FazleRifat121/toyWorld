@@ -12,6 +12,8 @@ import SignUpPage from "../pages/User/SignUpPage.jsx";
 import NotFound from "../pages/NotFound.jsx";
 import ProtectedMyOrders from "../components/MyOrders/MyOrders.jsx";
 import OrderPlaced from "../components/OrderPlaced/OrderPlaced.jsx";
+import DashboardLayout from "../layouts/DashboardLayout.jsx";
+import SellerRoute from "../components/Auth/SellerRoute.jsx"; // ⬅️ Import here
 
 // ProtectedRoute wrapper
 const ProtectedRoute = ({ children }) => (
@@ -26,7 +28,7 @@ const ProtectedRoute = ({ children }) => (
 export const router = ({ addToCart, cart, setCart }) =>
 	createBrowserRouter([
 		{
-			element: <MainLayout cart={cart} />, // pass cart to Navbar
+			element: <MainLayout cart={cart} />,
 			children: [
 				{ path: "/", element: <Home /> },
 				{ path: "/shop", element: <Shop addToCart={addToCart} /> },
@@ -34,7 +36,6 @@ export const router = ({ addToCart, cart, setCart }) =>
 					path: "/product/:id",
 					element: <ProductDetails addToCart={addToCart} />,
 				},
-
 				{
 					path: "/cart",
 					element: (
@@ -43,7 +44,6 @@ export const router = ({ addToCart, cart, setCart }) =>
 						</ProtectedRoute>
 					),
 				},
-
 				{
 					path: "/checkout",
 					element: (
@@ -52,12 +52,21 @@ export const router = ({ addToCart, cart, setCart }) =>
 						</ProtectedRoute>
 					),
 				},
-
 				{ path: "/sign-in", element: <SignInPage /> },
 				{ path: "/sign-up", element: <SignUpPage /> },
 				{ path: "*", element: <NotFound /> },
 				{ path: "/my-orders", element: <ProtectedMyOrders /> },
 				{ path: "/order-placed", element: <OrderPlaced /> },
+
+				// ✅ Seller-only dashboard
+				{
+					path: "/dashboard",
+					element: (
+						<SellerRoute>
+							<DashboardLayout />
+						</SellerRoute>
+					),
+				},
 			],
 		},
 	]);

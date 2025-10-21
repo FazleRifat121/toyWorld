@@ -1,10 +1,18 @@
-import { UserButton } from "@clerk/clerk-react";
+import { UserButton, useUser } from "@clerk/clerk-react";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
 import { useNavigate } from "react-router";
 
-const NavbarUserMenu = ({ cartCount, orderCount, wishlistCount, isSeller }) => {
+const NavbarUserMenu = ({
+	cartCount = 0,
+	orderCount = 0,
+	wishlistCount = 0,
+}) => {
 	const navigate = useNavigate();
+	const { user } = useUser();
+
+	// ✅ Determine if the logged-in user is a seller
+	const isSeller = user?.publicMetadata?.role === "seller";
 
 	return (
 		<UserButton
@@ -62,12 +70,12 @@ const NavbarUserMenu = ({ cartCount, orderCount, wishlistCount, isSeller }) => {
 					onClick={() => navigate("/wishlist")}
 				/>
 
-				{/* Seller Dashboard (optional) */}
+				{/* ✅ Seller Dashboard */}
 				{isSeller && (
 					<UserButton.Action
 						label="Seller Dashboard"
-						labelIcon={<MdDashboard size={24} />}
-						onClick={() => navigate("/seller")}
+						labelIcon={<MdDashboard size={22} />}
+						onClick={() => navigate("/dashboard")}
 					/>
 				)}
 			</UserButton.MenuItems>
