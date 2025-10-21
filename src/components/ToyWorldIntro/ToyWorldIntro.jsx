@@ -28,21 +28,23 @@ export default function ToyWorldIntro({ onFinish }) {
 			})
 			.to(textRef.current, { opacity: 0, duration: 1, delay: 0.5 });
 
-		// Animate particles
 		const animateParticles = () => {
 			const width = window.innerWidth;
 			const height = window.innerHeight;
 
-			gsap.to(particlesRef.current, {
-				x: () => Math.random() * width - width / 2,
-				y: () => Math.random() * height - height / 2,
-				scale: () => Math.random() * 2 + 0.5,
-				opacity: () => Math.random(),
-				duration: 4,
-				repeat: -1,
-				yoyo: true,
-				stagger: 0.05,
-				ease: "sine.inOut",
+			particlesRef.current.forEach((particle) => {
+				const anim = () => {
+					gsap.to(particle, {
+						x: Math.random() * width - particle.offsetLeft,
+						y: Math.random() * height - particle.offsetTop,
+						scale: Math.random() * 2 + 0.5,
+						opacity: Math.random(),
+						duration: 2 + Math.random() * 2, // random speed between 2-4s
+						ease: "sine.inOut",
+						onComplete: anim, // loop each particle individually
+					});
+				};
+				anim();
 			});
 		};
 
@@ -53,14 +55,19 @@ export default function ToyWorldIntro({ onFinish }) {
 
 	return (
 		<div className="intro-container">
-			{/* Particles */}
-			{Array.from({ length: 100 }).map((_, i) => (
-				<div
-					key={i}
-					className="particle"
-					ref={(el) => (particlesRef.current[i] = el)}
-				/>
-			))}
+			{Array.from({ length: 100 }).map((_, i) => {
+				// Initialize particles at random positions
+				const x = Math.random() * window.innerWidth;
+				const y = Math.random() * window.innerHeight;
+				return (
+					<div
+						key={i}
+						className="particle"
+						ref={(el) => (particlesRef.current[i] = el)}
+						style={{ top: y, left: x }}
+					/>
+				);
+			})}
 
 			{/* Futuristic title */}
 			<h1 ref={textRef} className="intro-title">
