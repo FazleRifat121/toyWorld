@@ -93,6 +93,19 @@ function Navbar() {
 		setSearchOpen(false);
 		setSearchQuery("");
 	};
+	// Lock body scroll when drawer is open (for small devices)
+	useEffect(() => {
+		if (drawerOpen) {
+			document.body.style.overflow = "hidden"; // prevent background scrolling
+		} else {
+			document.body.style.overflow = ""; // restore scroll
+		}
+
+		// Cleanup on unmount
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [drawerOpen]);
 
 	// Drawer animation
 	useEffect(() => {
